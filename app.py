@@ -48,7 +48,8 @@ def upload_file():
                 'transcription': result['text']
             })
         except Exception as e:
-            return jsonify({'error': str(e)}), 500
+            app.logger.error("An error occurred during file processing: %s", e, exc_info=True)
+            return jsonify({'error': 'An internal error has occurred. Please try again later.'}), 500
     
     return jsonify({'error': 'Invalid file type'}), 400
 
